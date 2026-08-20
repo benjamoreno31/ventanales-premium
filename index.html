@@ -120,7 +120,9 @@ src="https://www.facebook.com/tr?id=1057617723291592&ev=PageView&noscript=1"/></
   .brand span{color:var(--orange-ink);}
   .header-phone{
     font-size:18px;font-weight:600;letter-spacing:1px;white-space:nowrap;
+    display:inline-flex;align-items:center;gap:8px;
   }
+  .phone-ico{width:17px;height:17px;fill:var(--orange-ink);flex:none;}
   nav.main{display:flex;gap:6px;align-items:center;}
   nav.main a{
     font-size:12px;font-weight:600;letter-spacing:0.8px;text-transform:uppercase;
@@ -331,8 +333,12 @@ src="https://www.facebook.com/tr?id=1057617723291592&ev=PageView&noscript=1"/></
       flex-direction:column;gap:0;border-bottom:1px solid var(--line);padding:8px 24px 16px;}
     nav.main.open{display:flex;}
     nav.main a{padding:12px 0;border:none;border-bottom:1px solid var(--line-soft);}
-    .nav-toggle{display:inline-block;}
-    .header-phone{display:none;}
+    .nav-toggle{display:inline-block;padding:7px 9px;font-size:11px;}
+    .header-inner{gap:8px;}
+    .brand{font-size:12px;letter-spacing:0.6px;gap:7px;min-width:0;}
+    .brand-mark{height:26px;}
+    .header-phone{display:inline-flex;font-size:14px;letter-spacing:0.3px;margin-left:auto;}
+    .phone-ico{width:15px;height:15px;}
     .hero h1{font-size:32px;}
     .hero-figure img{height:280px;}
     h2.section-title{font-size:28px;}
@@ -357,7 +363,7 @@ src="https://www.facebook.com/tr?id=1057617723291592&ev=PageView&noscript=1"/></
 <!-- ============ HEADER ============ -->
 <header class="site">
   <div class="wrap header-inner">
-    <div class="brand"><img src="img/logo.png" alt="" class="brand-mark">Ventanales<span>.</span>Santiago</div>
+    <div class="brand"><img src="ventanales/img/logo.png" alt="" class="brand-mark" onerror="this.style.display='none'">Ventanales<span>.</span>Santiago</div>
     <nav class="main" id="nav">
       <a href="#inicio">Inicio</a>
       <a href="#trabajos">Trabajos</a>
@@ -365,7 +371,7 @@ src="https://www.facebook.com/tr?id=1057617723291592&ev=PageView&noscript=1"/></
       <a href="#cobertura">Cobertura</a>
       <a href="#contacto">Contacto</a>
     </nav>
-    <a class="header-phone" href="tel:+56225830926">+56 2 2583 0926</a>
+    <a class="header-phone" href="tel:+56225830926" data-track="header_call"><svg class="phone-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1C10.6 21 3 13.4 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.2.2 2.4.6 3.6.1.4 0 .7-.2 1l-2.3 2.2z"/></svg><span class="phone-num">+56 2 2583 0926</span></a>
     <button class="nav-toggle" id="navToggle" aria-label="Abrir menú">Menú</button>
   </div>
 </header>
@@ -380,7 +386,7 @@ src="https://www.facebook.com/tr?id=1057617723291592&ev=PageView&noscript=1"/></
       <p class="lead">Presupuesto gratuito en 24 horas. Sin compromiso.</p>
       <div class="hero-cta">
         <a href="#cotizar" class="btn green" data-track="hero_cta">Solicitar presupuesto</a>
-        <a href="tel:+56225830926" class="btn ghost">Llamar ahora</a>
+        <a href="tel:+56225830926" class="btn ghost" data-track="hero_call">Llamar +56 2 2583 0926</a>
       </div>
     </div>
     <figure class="hero-figure reveal">
@@ -623,7 +629,7 @@ src="https://www.facebook.com/tr?id=1057617723291592&ev=PageView&noscript=1"/></
 <!-- ============ FOOTER ============ -->
 <footer class="site">
   <div class="footer-inner">
-    <div class="fbrand"><img src="img/logo.png" alt="" class="fbrand-mark">Ventanales<span>.</span>Santiago</div>
+    <div class="fbrand"><img src="ventanales/img/logo.png" alt="" class="fbrand-mark" onerror="this.style.display='none'">Ventanales<span>.</span>Santiago</div>
     <div class="footer-links">
       <a href="#trabajos">Trabajos</a>
       <a href="#proceso">Proceso</a>

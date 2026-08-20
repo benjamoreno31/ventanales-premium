@@ -430,7 +430,7 @@ src="https://www.facebook.com/tr?id=1057617723291592&ev=PageView&noscript=1"/></
         <p class="form-note">Al enviar aceptas ser contactado por teléfono, WhatsApp o email.</p>
       </form>
       <div class="form-success" id="formSuccess">
-        Presupuesto solicitado. Te contactamos dentro de 24 horas.
+        Se abrió WhatsApp con tu mensaje ya escrito — solo presiona <strong>Enviar</strong> para confirmar tu solicitud.
       </div>
     </div>
   </div>
@@ -666,12 +666,12 @@ filters&&filters.addEventListener('click',e=>{
   });
 });
  
-/* ---------- Validación + envío del formulario ---------- */
+/* ---------- Validación + envío del formulario a WhatsApp del instalador ---------- */
 const form=document.getElementById('leadForm');
 const success=document.getElementById('formSuccess');
  
-// ↓↓↓ REEMPLAZA por tu webhook real de Make.com ↓↓↓
-const WEBHOOK_URL='https://hook.make.com/YOUR_WEBHOOK_ID';
+// Número del instalador (WhatsApp) — el mismo que usan los botones de la página
+const INSTALADOR_WA='56937609490';
  
 function setError(id,on){
   document.getElementById(id).closest('.field').classList.toggle('invalid',on);
@@ -683,7 +683,7 @@ function validPhoneCL(v){
   return /^(56)?9\d{8}$/.test(d);
 }
  
-form&&form.addEventListener('submit',async e=>{
+form&&form.addEventListener('submit',e=>{
   e.preventDefault();
   const fn=document.getElementById('firstName').value.trim();
   const ln=document.getElementById('lastName').value.trim();
@@ -698,35 +698,22 @@ form&&form.addEventListener('submit',async e=>{
   const emOk=validEmail(em);   setError('email',!emOk); ok=ok&&emOk;
   if(!ok)return;
  
-  const data={
-    nombre:fn+' '+ln,
-    telefono:ph,
-    email:em,
-    comentario:ms,
-    timestamp:new Date().toISOString(),
-    origen:'landing_ventanales_santiago'
-  };
+  // Arma el mensaje que llegará al WhatsApp del instalador
+  const lineas=[
+    'Hola, quiero un presupuesto de ventanales:',
+    'Nombre: '+fn+' '+ln,
+    'Teléfono: '+ph,
+    'Email: '+em
+  ];
+  if(ms) lineas.push('Detalle: '+ms);
+  const mensaje=encodeURIComponent(lineas.join('\n'));
  
-  const btn=form.querySelector('button[type=submit]');
-  const original=btn.textContent;
-  btn.disabled=true; btn.textContent='Enviando…';
+  if(window.fbq) fbq('track','Lead');
  
-  try{
-    await fetch(WEBHOOK_URL,{
-      method:'POST',
-      headers:{'Content-Type':'application/json'},
-      body:JSON.stringify(data)
-    });
-    if(window.fbq)fbq('track','Lead');
-    form.style.display='none';
-    success.style.display='block';
-  }catch(err){
-    // Fallback: guarda localmente para no perder el lead
-    try{localStorage.setItem('lastLead',JSON.stringify(data));}catch(_){}
-    if(window.fbq)fbq('track','Lead');
-    form.style.display='none';
-    success.style.display='block';
-  }
+  // Muestra confirmación y abre WhatsApp con el mensaje ya redactado
+  form.style.display='none';
+  success.style.display='block';
+  window.open('https://wa.me/'+INSTALADOR_WA+'?text='+mensaje, '_blank');
 });
  
 /* ---------- Tracking de CTAs en Meta Pixel ---------- */
